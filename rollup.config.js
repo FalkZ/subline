@@ -10,7 +10,7 @@ import typescript from "@rollup/plugin-typescript";
 import ts from "@wessberg/rollup-plugin-ts";
 
 export default {
-  input: ["./store.ts"],
+  input: ["./entry.ts"],
 
   output: [
     {
