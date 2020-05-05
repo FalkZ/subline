@@ -1,15 +1,40 @@
 class Union extends Array {}
 
 const compareObject = (a, b) => {
-  const ak = Object.keys(a).sort();
+  let ak = Object.keys(a).sort();
   const bk = Object.keys(b).sort();
 
-  if (ak.length !== bk.length) return false;
+  const types = [Number, String];
+  const unionKeys = [];
+  ak = ak.filter((key) => {
+    const match = types.map(String).indexOf(key);
+    if (match === -1) {
+      return true;
+    } else {
+      unionKeys.push(types[match]);
+      return false;
+    }
+  });
+
+  if (unionKeys.length === 0 && ak.length !== bk.length) return false;
 
   try {
-    ak.map((key, index) => {
-      if (key !== bk[index] || !compare(a[key], b[bk[index]]))
-        throw new Error("Type missmatch");
+    ak.forEach((key, index) => {
+      if (!compare(a[key], b[key])) throw new Error("Type missmatch");
+
+      delete bk[bk.indexOf(key)];
+    });
+    bk.forEach((key) => {
+      if (unionKeys.length === 0) throw new Error("Type missmatch");
+
+      const match = unionKeys.reduce((last, creator) => {
+        if (last) return true;
+        if (!Number.isNaN(creator(key))) {
+          return compare(a[creator + ""], b[key]);
+        }
+      }, false);
+
+      if (!match) throw new Error("Type missmatch");
     });
     return true;
   } catch (error) {

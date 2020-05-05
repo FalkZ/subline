@@ -9,6 +9,7 @@ import {
 import { set } from "../utiliti/set";
 import { get } from "../utiliti/get";
 import { isEqual } from "../utiliti/isEqual";
+import { isObject } from "../utiliti/isObject";
 import { compare, Union } from "./compare";
 
 const isDefined = (value: any) => value !== undefined;
@@ -30,7 +31,11 @@ const storeType = {
   arr: [Number, String],
   test: Union(null, Number),
   test2: String,
-  obj: { arr: [Number, String] },
+  obj: {
+    arr: [Number, String],
+    //@ts-ignore
+    [Number]: String,
+  },
 };
 
 class Observable {
@@ -66,6 +71,23 @@ class Observable {
     } else {
       console.error(cb, "does not match type:", typ);
     }
+    return this;
+  }
+
+  map(cb) {
+    let registered = 0;
+    this.attachObserver(this.#path, (arr) => {
+      //if (isObject(arr)) arr = Object.entries(arr);
+      for (let index = registered; index < arr.length; index++) {
+        arr[index + "_"].subscribe((value) => {
+          cb({ index, value });
+        });
+
+        registered = index;
+      }
+    });
+
+    return this;
   }
 }
 
@@ -120,31 +142,6 @@ const obsStore = (store: any, storeType: any) => {
 
         if (isDefined(r)) {
           return prox(r, [...path, key]);
-        }
-
-        if (key.endsWith("$")) {
-          key = key.slice(0, -1);
-          const r = target[key];
-          if (isDefined(r)) {
-            return (cb) => {
-              if (typeof cb === "function") {
-                cb = cb(r);
-              }
-              let typ;
-              if (Array.isArray(target)) {
-                typ = Union(...get(storeType)(...[...path]));
-              } else {
-                typ = get(storeType)(...[...path, key]);
-              }
-              //  console.log(typ, storeType, [...path, key]);
-              if (compare(typ, cb)) {
-                target[key] = cb;
-                st.next(prox(store));
-              } else {
-                console.error(cb, "does not match type:", typ);
-              }
-            };
-          }
         }
 
         if (key.endsWith("_")) {
