@@ -7,7 +7,7 @@ import {
 } from "observables-with-streams";
 import { get } from "../utiliti/get";
 //import { isEqual } from "../utiliti/isEqual";
-import { isEqual } from "lodash.isequal";
+import isEqual from "lodash.isequal";
 import { compare } from "./compare";
 import { newDeepObservable } from "./newDeepObservable";
 
@@ -75,3 +75,5 @@ export class Observable {
     return observable._`arr`;
   }
 }
+
+export const isObservable = (any) => any instanceof Observable;

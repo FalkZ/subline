@@ -1,12 +1,12 @@
 import { Observable } from "./Observable";
 import { Store } from "./Store";
-import { isDefined, getObserver } from "./entry";
+import { isDefined } from "./entry";
 
-const observableKeys = Object.getOwnPropertyNames(
-  Object.getPrototypeOf(Observable)
-);
+// const observableKeys = Object.getOwnPropertyNames(
+//   Object.getPrototypeOf(Observable)
+// );
 
-console.log(observableKeys);
+// console.log(observableKeys);
 
 class Null extends Array {
   constructor() {
