@@ -36,19 +36,6 @@ const v = newDeepObservable(store, storeType);
 
 export { newDeepObservable };
 
-document.body.appendChild(
-  v.obj_createElement(({ context, self }) => {
-    console.log(
-      context.arr_
-        .map((context) => {
-          // self.innerHTML = context.index + ":  " + context.value;
-          return context.index + ":  " + context.value;
-        })
-        .arr_.subscribe((c) => console.log(c))
-    ); //.subscribe((c) => console.log(c));
-  })
-);
-
 console.log(v);
 
 m.test.v("ctx").nest(document.createTextNode("jdkfdkk")).attach(document.body);

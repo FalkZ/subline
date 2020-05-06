@@ -6,7 +6,8 @@ import {
   scan,
 } from "observables-with-streams";
 import { get } from "../utiliti/get";
-import { isEqual } from "../utiliti/isEqual";
+//import { isEqual } from "../utiliti/isEqual";
+import { isEqual } from "lodash.isequal";
 import { compare } from "./compare";
 import { newDeepObservable } from "./newDeepObservable";
 
@@ -60,16 +61,17 @@ export class Observable {
 
     this.attachObserver(this.#path, (arr) => {
       for (let index = registered; index < arr.length; index++) {
-        arr[index + "_"].subscribe((value) => {
+        arr._(index).subscribe((value) => {
           const v = cb({ index, value });
 
           const arr = [...observable.arr];
           arr[index] = v;
-          observable.arr_.next(arr);
+          console.log(arr);
+          observable._`arr`.next(arr);
         });
         registered = index;
       }
     });
-    return observable;
+    return observable._`arr`;
   }
 }
