@@ -1,7 +1,23 @@
-import { subscribe, map, distinct } from "observables-with-streams";
+import {
+  subscribe,
+  map,
+  distinct,
+  fromNext,
+  scan,
+} from "observables-with-streams";
 import { get } from "../utiliti/get";
 import { isEqual } from "../utiliti/isEqual";
 import { compare } from "./compare";
+import { newDeepObservable } from "./newDeepObservable";
+
+type Mutation = { index: number; value: any };
+
+const merge = scan((last: any[], mut: Mutation) => {
+  last[mut.index] = mut.value;
+
+  return last;
+}, []);
+
 export class Observable {
   #store;
   #path;
@@ -19,30 +35,41 @@ export class Observable {
     this.attachObserver(this.#path, cb);
     return this;
   }
-  next(cb) {
-    const value = this.#store.getValue(...this.#path);
-    if (typeof cb === "function") {
-      cb = cb(value);
+  next(value) {
+    if (typeof value === "function") {
+      value = value(this.#store.getValue(...this.#path));
     }
-    let typ = this.#store.getType(...this.#path);
-    if (compare(typ, cb)) {
-      this.#store.setValue(cb, this.#path);
-    } else {
-      console.error(cb, "does not match type:", typ);
+
+    if (this.#store.typeCheck) {
+      let typ = this.#store.getType(...this.#path);
+      if (!compare(typ, value)) {
+        console.error(value, "does not match type:", typ);
+        return this;
+      }
     }
+
+    this.#store.setValue(value, this.#path);
+
     return this;
   }
+
   map(cb) {
+    const observable = newDeepObservable({ arr: [] });
+
     let registered = 0;
+
     this.attachObserver(this.#path, (arr) => {
-      //if (isObject(arr)) arr = Object.entries(arr);
       for (let index = registered; index < arr.length; index++) {
         arr[index + "_"].subscribe((value) => {
-          cb({ index, value });
+          const v = cb({ index, value });
+
+          const arr = [...observable.arr];
+          arr[index] = v;
+          observable.arr_.next(arr);
         });
         registered = index;
       }
     });
-    return this;
+    return observable;
   }
 }

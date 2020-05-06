@@ -15,6 +15,9 @@ export class Store {
     this.#source = store;
     this.#types = storeType;
   }
+  get typeCheck() {
+    return Boolean(this.#types);
+  }
   get store() {
     const [o1, o2] = this.#store.tee();
     this.#store = o1;

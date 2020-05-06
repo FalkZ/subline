@@ -1,4 +1,4 @@
-import { Element, getComponent } from "./Element.1";
+import { Element, getComponent } from "./Element";
 // new Element<Component>((resolve) =>
 //   new Promise((v) => {
 //     v();
