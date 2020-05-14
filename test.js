@@ -1,1 +1,4 @@
-export const v = ({ self, context }) => (self.innerText = context);
+export const v = ({ self, context: { num } }) => {
+  //self.nest(num);
+  self.onclick = () => num.next((v) => v + 1);
+};

@@ -1,17 +1,7 @@
 import { isObservable } from "./Observable";
+import { html } from "./html";
 
-export class Element extends Promise<Component> {
-  nest(...els) {
-    return this.then((el: Component) => el.nest(...els));
-  }
-  css(css) {
-    return this.then((el) => el.css(css));
-  }
-  attach(node) {
-    return this.then((el) => el.attach(node));
-  }
-}
-class Component extends HTMLElement {
+export class Component extends HTMLElement {
   private createNode(el) {
     if (isObservable(el)) {
       let ph = document.createTextNode("");
@@ -20,17 +10,31 @@ class Component extends HTMLElement {
         ph.replaceWith(n);
         ph = n;
       });
+      console.log(ph);
       return ph;
     }
-
-    if (["number", "string"].includes(typeof el))
-      return document.createTextNode(el);
-
+    if (Array.isArray(el)) {
+      // @ts-ignore
+      return new (customElements.get("ui-map"))().nest(...el);
+    }
+    if (["number", "string"].includes(typeof el)) {
+      const text = new (customElements.get("ui-text"))();
+      text.innerText = el;
+      return text;
+    }
+    if (el === null) return document.createTextNode("");
+    if (el === undefined) {
+      console.error("Element is undefined");
+      return document.createTextNode("");
+    }
     return el;
   }
-
   nest(...els) {
     els.forEach((el) => this.appendChild(this.createNode(el)));
+    return this;
+  }
+  html(strings, ...all) {
+    this.appendChild(html(strings, ...all).render());
     return this;
   }
   css(css) {

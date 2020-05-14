@@ -1,6 +1,6 @@
 import { Observable } from "./Observable";
 import { Store } from "./Store";
-import { isDefined } from "./entry";
+import { isDefined } from "../../utiliti/isDefined";
 
 // const observableKeys = Object.getOwnPropertyNames(
 //   Object.getPrototypeOf(Observable)
@@ -39,18 +39,20 @@ export const newDeepObservable = (store: any, storeType?: any) => {
           return prox(r, [...path, key]);
         }
 
-        if (key === "_")
+        if (key === "_") {
           return (arg, ...obj) => {
             let temp = arg;
-            if (Array.isArray(arg))
+            if (Array.isArray(arg)) {
               temp = arg.reduce(
                 (last, next, index) => last + next + (obj[index] || ""),
                 ""
               );
+            }
 
             return new Observable({ store: st, path: [...path, temp] });
           };
-      },
+        }
+      }
     });
   };
   st.prox = prox;

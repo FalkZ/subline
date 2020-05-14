@@ -1,0 +1,41 @@
+.loading {
+  position: relative;
+  
+}
+
+.loading::before {
+  opacity: 0.7;
+  content: "";
+  width: 0px;
+  height: 0px;
+
+  border-radius: 7px;
+  display: block;
+  border: 7px solid currentColor;
+  animation: load1 1.2s infinite ease-in-out;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+@keyframes load1 {
+  0%,
+  80%,
+  100% {
+    transform: scale(1);
+  }
+  10%,
+  70% {
+    width: 0px;
+    height: 0px;
+    border-width: 7px;
+  }
+
+  40% {
+    transform: scale(2);
+  }
+  55% {
+    width: 20px;
+    height: 2px;
+    border-width: 2px;
+  }
+}
