@@ -1,7 +1,10 @@
 import { isObservable } from "./Observable";
 import { html } from "./html";
+import { css, getStyleClasses } from "./styles/style";
+import "./styles/defaultStyles";
 
 export class Component extends HTMLElement {
+  #css: { [key: string]: string } = {};
   private createNode(el) {
     if (isObservable(el)) {
       let ph = document.createTextNode("");
@@ -37,13 +40,17 @@ export class Component extends HTMLElement {
     this.appendChild(html(strings, ...all).render());
     return this;
   }
-  css(css) {
-    console.log(css);
+  css(...styles) {
+    this.#css = { ...this.#css, ...css(...styles) };
+
     return this;
   }
   attach(node) {
     node.appendChild(this);
     return this;
+  }
+  connectedCallback() {
+    this.classList.add(...getStyleClasses(this.#css));
   }
 }
 export const getComponent = (path) => {

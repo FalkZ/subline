@@ -27,7 +27,7 @@ export default {
       // extensions: [".js", ".ts"],
     }),
     // multi(),
-    // json(),
+    json(),
     ts({ noImplicitAny: false }),
     visualizer(),
     // typescript({

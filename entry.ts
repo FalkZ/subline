@@ -17,7 +17,7 @@ const store: object = {
   arr: [1, 22, 3, 4],
   test: 1,
   test2: "v",
-  obj: { arr: [1, 22, 3, 4] }
+  obj: { arr: [1, 22, 3, 4] },
 };
 
 const storeType = {
@@ -27,8 +27,8 @@ const storeType = {
   obj: {
     arr: [Number, String],
     //@ts-ignore
-    [Number]: String
-  }
+    [Number]: String,
+  },
 };
 
 const v = newDeepObservable(store, storeType);
@@ -51,13 +51,11 @@ const t2 = ui.text;
 t2.style.fontFamily = "Algerian";
 
 m.test
-  .v({ num: v._ `test` }) // .nest(ui.text, t, t2)
-  .nest("jdkfdkk", v.arr._ `2`, v._ `arr`, i)
-  .css `
+  .v({ num: v._`test` }) // .nest(ui.text, t, t2)
+  .nest("jdkfdkk", v.arr._`2`, v._`arr`, i).css`
    display: block;
-   `
-  .//
-  html `
+   background: black;
+   `.html`
   <svg width="391" height="391" viewBox="-70.5 -70.5 391 391">
   <rect fill="#fff" stroke="#000" x="-70" y="-70" width="390" height="390"/>
   <g opacity="0.8">
