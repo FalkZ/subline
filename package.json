@@ -1,6 +1,6 @@
 {
   "name": "subline",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "main": "dist/subline.js",
   "license": "MIT",
   "devDependencies": {
@@ -13,11 +13,14 @@
     "typescript": "^3.8.3"
   },
   "scripts": {
-    "start": "rollup --watch -c rollup.config.js"
+    "start": "rollup --watch -c rollup.config.js",
+    "build": "rollup  -c rollup.config.js",
+    "prepublish": "npm run build"
   },
   "dependencies": {
     "css-shorthand-expand": "^1.2.0",
     "htm": "^3.0.4",
-    "observables-with-streams": "^0.5.4"
+    "observables-with-streams": "^0.5.4",
+    "rollup-plugin-cleanup": "^3.1.1"
   }
 }

@@ -8,7 +8,5 @@ setDefaultStyles(
     all: initial;
     font-family: sans-serif;
     box-sizing: border-box;
-    display: inline-block;
-    *line-height: 0;
   `
 );

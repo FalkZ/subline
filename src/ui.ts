@@ -11,7 +11,7 @@ const define = (name, Cp) => {
     enumerable: true,
     configurable: false,
 
-    get: () => new El()
+    get: () => new El(),
   });
 };
 
@@ -32,7 +32,9 @@ define("text", class extends Component {
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
 
-    ctx.font = styles.font;
+    ctx.font = `${styles.fontStyle} ${styles.fontVariant} ${styles.fontWeight} ${styles.fontSize} ${styles.fontFamily}`;
+
+    console.log(ctx.font);
 
     const text = this.innerText;
 
@@ -53,21 +55,23 @@ define("text", class extends Component {
 
     const span = document.createElement("span");
 
-    span.style.verticalAlign = "top";
+    console.log(styles.lineHeight);
+    //span.style.verticalAlign = "top";
     span.style.lineHeight = styles.lineHeight;
 
-    this.style.verticalAlign = "top";
+    // this.style.verticalAlign = "top";
     this.style.lineHeight = font.actualBoundingBoxAscent + "px";
     //this.style.float = "left";
     // this.style.width = "auto";
 
     span.style.display = "inline-block";
-    span.style.marginTop = `${-(rect.height - font.actualBoundingBoxAscent) /
-      2}px`;
+    span.style.marginTop = `${
+      -(rect.height - font.actualBoundingBoxAscent) / 2
+    }px`;
 
-    span.style.marginBottom =
-      `${-(rect.height - font.actualBoundingBoxAscent) /
-        2}px`;
+    span.style.marginBottom = `${
+      -(rect.height - font.actualBoundingBoxAscent) / 2
+    }px`;
 
     span.innerText = text;
 

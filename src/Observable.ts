@@ -3,7 +3,7 @@ import {
   map,
   distinct,
   fromNext,
-  scan
+  scan,
 } from "observables-with-streams";
 import { get } from "../../utiliti/get";
 import { isEqual } from "../../utiliti/isEqual";
@@ -67,12 +67,12 @@ export class Observable {
           const arr = [...observable.arr];
           arr[index] = v;
           console.log(arr);
-          observable._ `arr`.next(arr);
+          observable._`arr`.next(arr);
         });
         registered = index;
       }
     });
-    return observable._ `arr`;
+    return observable._`arr`;
   }
 }
 

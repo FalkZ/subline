@@ -24,7 +24,14 @@ const i = element.img;
 i.src =
   "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60";
 
-m.demo.test.v({ num: v._`test` }).nest("jdkfdkk", v.arr._`2`, v._`arr`, i).html`
+m.demo.test
+  .v({ num: v._`test` })
+  .nest(
+    "jdkiiiiiiiiiiii sa dsa dsa dsa f sfds dsfffffffffghhhhhhhhhh ds pdsa fda fda fdfff sfd dsfda dsff wfdkk",
+    v.arr._`2`,
+    v._`arr`,
+    i
+  ).html`
   <svg width="391" height="391" viewBox="-70.5 -70.5 391 391">
   <rect fill="#fff" stroke="#000" x="-70" y="-70" width="390" height="390"/>
   <g opacity="0.8">
@@ -37,6 +44,7 @@ m.demo.test.v({ num: v._`test` }).nest("jdkfdkk", v.arr._`2`, v._`arr`, i).html`
   `.css`
   display: block;
   background: red;
+  font-size: 30px;
   `.attach(document.body);
 
 serviceWorker({ path: "/demo/service-worker.js" });

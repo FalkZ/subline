@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="./src/css/loading.css" />
   </head>
   <body>
-    <script src="./entry.js" type="module"></script>
+    <script type="module">
+      if (typeof TransformStream === "undefined")
+        import(
+          "https://unpkg.com/web-streams-polyfill@2.1.1/dist/polyfill.min.js"
+        ).then(() => import("./entry.js"));
+      else import("./entry.js");
+    </script>
   </body>
 </html>

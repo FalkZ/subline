@@ -1,4 +1,5 @@
 import { set } from "./idb";
+import { version } from "../package.json";
 
 export const serviceWorker = ({ id, path }: any = {}) => {
   set("service-worker", { id: id || "default-cache" });
@@ -10,8 +11,9 @@ export const serviceWorker = ({ id, path }: any = {}) => {
         .catch((e) =>
           console.error(
             `Could not load ${path || "/service-worker.js"}.
-Create file in console:
-echo "importScripts('../dist/service-worker.js');"  > service-worker.js
+Create file with console:
+
+echo "importScripts('https://unpkg.com/subline@${version}/dist/service-worker.js');"  > service-worker.js
 
 `,
             e
