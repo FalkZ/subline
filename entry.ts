@@ -1,10 +1,9 @@
 import { of, subscribe, map, distinct, last } from "observables-with-streams";
 import { get } from "../utiliti/get";
 import { isEqual } from "../utiliti/isEqual";
-import { isObject } from "../utiliti/isObject";
 
 import { Union } from "./src/compare.js";
-import { m, ui } from "./src/mod";
+import { m, ui, serviceWorker } from "./src/mod";
 import { newDeepObservable } from "./src/newDeepObservable";
 
 export const getObserver = (obs, path, cb) =>
@@ -66,3 +65,5 @@ m.test
   display: block;
   background: black;
   `.attach(document.body);
+
+serviceWorker();

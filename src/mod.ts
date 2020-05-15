@@ -1,6 +1,6 @@
 import { Import } from "./Import";
 import { ui } from "./ui";
-import "./installSW";
+import { serviceWorker } from "./installSW";
 
 const mod = (path = []) => {
   return new Proxy((context) => new Import(path).createElement(context), {
@@ -11,4 +11,4 @@ const mod = (path = []) => {
 };
 export const m = mod();
 
-export { ui };
+export { ui, serviceWorker };

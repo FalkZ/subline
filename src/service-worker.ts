@@ -1,13 +1,11 @@
-var CACHE = "default-cache-1";
+import { get } from "./idb";
 
-// On install, cache some resource.
-self.addEventListener("install", function (evt) {});
+console.log(get("service-worker"));
 
-self.addEventListener("fetch", function (evt) {
-  console.log("The service worker is serving the asset.");
+const getCache = () => caches.open("auto-cache");
 
+self.addEventListener("fetch", function (evt: any) {
   evt.respondWith(
-    // new Promise((resolve) =>
     fetch(evt.request.url)
       .then((all) => {
         if (all.ok) {
@@ -18,20 +16,17 @@ self.addEventListener("fetch", function (evt) {
       })
       .catch((all) => {
         console.warn("Served from cache:", evt.request.url);
-        return caches.open(CACHE).then((cache) =>
+        return getCache().then((cache) =>
           cache.match(evt.request.url).then((resp) => {
             return resp || all;
           })
         );
-
-        //.then((respo) => resolve(respo));
       })
-    //  )
   );
 });
 
 function cache(url, response) {
-  return caches.open(CACHE).then(function (cache) {
+  return getCache().then(function (cache) {
     return cache.put(url, response);
   });
 }

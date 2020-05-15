@@ -2,45 +2,45 @@ const request = indexedDB.open("remanent");
 
 request.onupgradeneeded = () => request.result.createObjectStore("data");
 
-const store = new Promise(
-  (resolve) =>
-    (request.onsuccess = () => {
-      const db = request.result;
+const getStore = () =>
+  new Promise(
+    (resolve) =>
+      (request.onsuccess = () => {
+        const db = request.result;
 
-      var tx = db.transaction("data", "readwrite");
-      var store = tx.objectStore("data");
-      resolve(store);
+        var tx = db.transaction("data", "readwrite");
+        var store = tx.objectStore("data");
+        resolve(store);
 
-      // @ts-ignore
-      window.store = store;
+        // @ts-ignore
 
-      //   store.put({ title: "Quarry Memories", author: "Fred", isbn: 123456 }, 1);
-      //   store.put({ title: "Water Buffaloes", author: "Fred", isbn: 234567 }, 2);
-      //   console.log(
-      //     store.put(
-      //       { title: "Bedrock Nights", author: "Barney", isbn: 345678 },
-      //       3
-      //     )
-      //   );
+        //   store.put({ title: "Quarry Memories", author: "Fred", isbn: 123456 }, 1);
+        //   store.put({ title: "Water Buffaloes", author: "Fred", isbn: 234567 }, 2);
+        //   console.log(
+        //     store.put(
+        //       { title: "Bedrock Nights", author: "Barney", isbn: 345678 },
+        //       3
+        //     )
+        //   );
 
-      //   tx.oncomplete = function () {
-      //     // All requests have succeeded and the transaction has committed.
-      //   };
+        //   tx.oncomplete = function () {
+        //     // All requests have succeeded and the transaction has committed.
+        //   };
 
-      //   console.log(store.getAll(3));
-    })
-);
+        //   console.log(store.getAll(3));
+      })
+  );
 
-const get = (key) =>
+export const get = (key) =>
   new Promise((resolve) =>
-    store.then((store: any) => {
+    getStore().then((store: any) => {
       store.get(key).onsuccess = (all) => resolve(all.target.result);
     })
   );
 
-const set = (key, value) =>
+export const set = (key, value) =>
   new Promise((resolve) =>
-    store.then((store: any) => {
+    getStore().then((store: any) => {
       store.put(value, key).onsuccess = (all) => resolve();
     })
   );
