@@ -16,14 +16,7 @@ export default [
       },
     ],
 
-    plugins: [
-      commonjs(),
-      resolve(),
-      json(),
-      ts({ noImplicitAny: false }),
-      visualizer(),
-      sourcemaps(),
-    ],
+    plugins: [commonjs(), resolve(), json(), ts(), visualizer(), sourcemaps()],
   },
   {
     input: ["./src/service-worker.ts"],
@@ -34,12 +27,6 @@ export default [
         format: "esm",
       },
     ],
-    plugins: [
-      commonjs(),
-      resolve(),
-      json(),
-      ts({ noImplicitAny: false }),
-      sourcemaps(),
-    ],
+    plugins: [commonjs(), resolve(), json(), ts(), sourcemaps()],
   },
 ];
