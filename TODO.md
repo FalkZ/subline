@@ -14,3 +14,5 @@
 - [ ] Shadow
 - [ ] Reducers
 - [ ] Integrate portl
+- [ ] IDB
+- [ ] Optional Type
