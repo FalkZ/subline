@@ -1,4 +1,4 @@
-import { store, m, element, serviceWorker, types } from "./src/subline";
+import { store, m, element, serviceWorker, types } from "../dist/subline.js";
 
 const { Union } = types;
 
@@ -13,7 +13,6 @@ const v = store({
   test2: String,
   obj: {
     arr: [Number, String],
-    //@ts-ignore
     [Number]: String,
   },
 });
@@ -25,7 +24,7 @@ const i = element.img;
 i.src =
   "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60";
 
-m.test.v({ num: v._`test` }).nest("jdkfdkk", v.arr._`2`, v._`arr`, i).html`
+m.demo.test.v({ num: v._`test` }).nest("jdkfdkk", v.arr._`2`, v._`arr`, i).html`
   <svg width="391" height="391" viewBox="-70.5 -70.5 391 391">
   <rect fill="#fff" stroke="#000" x="-70" y="-70" width="390" height="390"/>
   <g opacity="0.8">
@@ -40,4 +39,4 @@ m.test.v({ num: v._`test` }).nest("jdkfdkk", v.arr._`2`, v._`arr`, i).html`
   background: red;
   `.attach(document.body);
 
-serviceWorker();
+serviceWorker({ path: "/demo/service-worker.js" });
