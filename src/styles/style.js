@@ -1,5 +1,4 @@
 import { isObservable } from "../Observable";
-//import { isContext, getContext } from "../utilities/context";
 
 import { css } from "./css";
 

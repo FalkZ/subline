@@ -52,10 +52,7 @@ t2.style.fontFamily = "Algerian";
 
 m.test
   .v({ num: v._`test` }) // .nest(ui.text, t, t2)
-  .nest("jdkfdkk", v.arr._`2`, v._`arr`, i).css`
-   display: block;
-   background: black;
-   `.html`
+  .nest("jdkfdkk", v.arr._`2`, v._`arr`, i).html`
   <svg width="391" height="391" viewBox="-70.5 -70.5 391 391">
   <rect fill="#fff" stroke="#000" x="-70" y="-70" width="390" height="390"/>
   <g opacity="0.8">
@@ -64,4 +61,8 @@ m.test
     <polyline points="50,150 50,200 200,200 200,100" stroke="red" stroke-width="4" fill="none" />
     <line x1="50" y1="50" x2="200" y2="200" stroke="blue" stroke-width="4" />
   </g>
-  </svg>`.attach(document.body);
+  </svg>
+  `.css`
+  display: block;
+  background: black;
+  `.attach(document.body);
