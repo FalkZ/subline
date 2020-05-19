@@ -1,9 +1,6 @@
 import { isObservable } from "./Observable";
 import { html } from "./html";
-import { css, getClassNames } from "./styles/styles";
-import "./styles/defaultStyles";
 
-import { createObject } from "./styles/createObject";
 import { CSSMap } from "./styles/CSSMap";
 
 export class Component extends HTMLElement {
@@ -44,9 +41,8 @@ export class Component extends HTMLElement {
     this.appendChild(html(strings, ...all).render());
     return this;
   }
-  css(...styles: [TemplateStringsArray, ...any[]]) {
-    console.log(styles);
-    this.#css.add(createObject(...styles));
+  css(...styles: CSSTemplate) {
+    this.#css.apply(styles);
 
     return this;
   }

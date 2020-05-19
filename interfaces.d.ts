@@ -3,3 +3,5 @@ interface StyleSheet {
   cssRules: CSSRuleList;
   deleteRule(index: number);
 }
+
+type CSSTemplate = [TemplateStringsArray, ...any[]];

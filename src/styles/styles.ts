@@ -1,9 +1,5 @@
 import { isObservable } from "../Observable";
-
-import { css } from "./css";
-import { CSSMap } from "./CSSMap";
-
-export { css };
+import { createCSSMap } from "./createCSSMap";
 
 const style = document.createElement("style");
 document.head.prepend(style);
@@ -93,14 +89,17 @@ const applyRule = ({ parents, context }) => ([key, value]) => {
   }
 };
 
-let defaultStyles = new CSSMap();
+const setDefaultStyles = (...template: CSSTemplate) => () =>
+  createCSSMap(template);
 
-export const setDefaultStyles = (cssStyleMap) => {
-  defaultStyles = cssStyleMap;
-};
+const defaultStyles = setDefaultStyles`
+    all: initial;
+    font-family: sans-serif;
+    box-sizing: border-box;
+  `;
 
 export const getClassNames = (cssStyleMap, { parents, context }: any = {}) => {
-  return defaultStyles
+  return defaultStyles()
     .add(cssStyleMap)
     .entries()
     .map(applyRule({ parents: parents || [], context }));

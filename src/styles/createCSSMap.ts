@@ -1,12 +1,13 @@
 import { isObservable } from "../Observable";
-import { newDeepObservable } from "../newDeepObservable";
 import { CSSMap } from "./CSSMap";
 
-export const createObject = (
-  strings: TemplateStringsArray,
-  ...objects: any[]
+export const createCSSMap = (
+  template: CSSTemplate,
+  map: CSSMap = new CSSMap()
 ) => {
   let last;
+  const [strings, ...objects] = template;
+
   const ret = [...strings, ""]
     .map((str, index) => {
       let s: any = str.trim().split(";");
@@ -44,5 +45,5 @@ export const createObject = (
     .filter(Boolean);
   console.log(ret);
 
-  return new CSSMap(ret);
+  return map.add(ret);
 };
