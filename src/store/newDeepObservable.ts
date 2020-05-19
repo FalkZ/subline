@@ -1,6 +1,6 @@
 import { Observable } from "./Observable";
 import { Store } from "./Store";
-import { isDefined } from "../../utiliti/isDefined";
+import { isDefined } from "../../../utiliti/isDefined";
 
 export const newDeepObservable = (store: any, storeType?: any) => {
   const st = new Store({ store, storeType });

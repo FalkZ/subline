@@ -1,5 +1,5 @@
-import { Element } from "./Element";
-import { getComponent } from "./Component";
+import { ComponentPromise } from "./ComponentPromise";
+import { getComponent } from "../component/Component";
 // new Element<Component>((resolve) =>
 //   new Promise((v) => {
 //     v();
@@ -14,7 +14,7 @@ export class Import {
     this.#path = path;
   }
   createElement(context) {
-    return new Element((resolve, reject) => {
+    return new ComponentPromise((resolve, reject) => {
       import([Import.base, ...this.#path].join("/") + ".js").then((mod) => {
         if (!mod[this.#key]) reject("No module found");
         const self = getComponent([...this.#path, this.#key]);

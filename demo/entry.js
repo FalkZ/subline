@@ -1,4 +1,11 @@
-import { store, m, element, serviceWorker, types } from "../dist/subline.js";
+import {
+  store,
+  m,
+  element,
+  serviceWorker,
+  types,
+  cmyk,
+} from "../dist/subline.js";
 
 const { Union } = types;
 
@@ -43,7 +50,9 @@ m.demo.test
   </svg>
   `.css`
   display: block;
-  background: ${v._`test`.pipe((v) => (v === 1 ? "black" : "red"))};
+  background: ${v._`test`.pipe((v) =>
+    v === 1 ? "green" : cmyk(1, 0, 0.7, 1)
+  )};
   font-size: 30px;
   font: 30px;
   `.attach(document.body);

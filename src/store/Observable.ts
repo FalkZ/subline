@@ -5,10 +5,10 @@ import {
   fromNext,
   scan,
 } from "observables-with-streams";
-import { get } from "../../utiliti/get";
-import { isEqual } from "../../utiliti/isEqual";
+import { get } from "../../../utiliti/get";
+import { isEqual } from "../../../utiliti/isEqual";
 
-import { compare } from "./compare";
+import { compare } from "../compare";
 import { newDeepObservable } from "./newDeepObservable";
 
 type Mutation = { index: number; value: any };

@@ -1,7 +1,7 @@
-import { isObservable } from "../Observable";
+import { isObservable } from "../store/Observable";
 import { CSSMap } from "./CSSMap";
 
-export const createCSSMap = (
+export const addToCSSMap = (
   template: CSSTemplate,
   map: CSSMap = new CSSMap()
 ) => {

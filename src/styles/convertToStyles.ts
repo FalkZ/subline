@@ -1,5 +1,5 @@
-import { isObservable } from "../Observable";
-import { createCSSMap } from "./createCSSMap";
+import { isObservable } from "../store/Observable";
+import { addToCSSMap } from "./addToCSSMap";
 
 const style = document.createElement("style");
 document.head.prepend(style);
@@ -78,19 +78,13 @@ const applyDynamicRule = ({ key, value }) => {
 const applyRule = ({ parents, context }) => ([key, value]) => {
   if (isObservable(value)) {
     return applyDynamicRule({ key, value });
-  }
-  // else if (isContext(value)) {
-  //   value = getContext(context, value);
-  //   //console.log(value);
-  //   return applyRule({ parents, context })([key, value]);
-  // }
-  else {
+  } else {
     return insertRule(`${key}: ${value}`, parents);
   }
 };
 
 const setDefaultStyles = (...template: CSSTemplate) => () =>
-  createCSSMap(template);
+  addToCSSMap(template);
 
 const defaultStyles = setDefaultStyles`
     all: initial;

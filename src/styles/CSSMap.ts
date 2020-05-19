@@ -1,6 +1,6 @@
-import { Observable } from "../Observable";
-import { getClassNames } from "./styles";
-import { createCSSMap } from "./createCSSMap";
+import { Observable } from "../store/Observable";
+import { getClassNames } from "./convertToStyles";
+import { addToCSSMap } from "./addToCSSMap";
 
 export class CSSMap extends Map<String, String | Observable> {
   add(css: any) {
@@ -15,7 +15,7 @@ export class CSSMap extends Map<String, String | Observable> {
   }
 
   apply(template: CSSTemplate) {
-    createCSSMap(template, this);
+    addToCSSMap(template, this);
 
     return this;
   }

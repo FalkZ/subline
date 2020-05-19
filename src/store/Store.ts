@@ -1,7 +1,7 @@
 import { fromNext } from "observables-with-streams";
-import { set } from "../../utiliti/set";
-import { get } from "../../utiliti/get";
-import { Union } from "./compare";
+import { set } from "../../../utiliti/set";
+import { get } from "../../../utiliti/get";
+import { Union } from "../compare";
 export class Store {
   next: Function;
   prox: Function;
