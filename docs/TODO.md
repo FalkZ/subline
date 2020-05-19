@@ -1,11 +1,13 @@
-- [ ] Observable Wrapper
 - [ ] Reactive CSS / Props / HTML
-- [ ] Refactor
-- [ ] Exports
-- [ ] Naming
+- [x] Refactor
+- [x] Exports
+- [x] Naming
+
+- [ ] Testing
 
 ## V2
 
+- [ ] Observable Wrapper
 - [ ] Workers by default
 - [ ] Docs
 - [ ] Routing
@@ -16,3 +18,9 @@
 - [ ] Integrate portl
 - [ ] IDB
 - [ ] Optional Type
+
+## Elements
+
+- [ ] Icons
+- [ ] Input
+- [ ] Markdown

@@ -1,10 +1,13 @@
 import { isObservable } from "./Observable";
 import { html } from "./html";
-import { css, getStyleClasses } from "./styles/style";
+import { css, getClassNames } from "./styles/styles";
 import "./styles/defaultStyles";
 
+import { createObject } from "./styles/createObject";
+import { CSSMap } from "./styles/CSSMap";
+
 export class Component extends HTMLElement {
-  #css: { [key: string]: string } = {};
+  #css = new CSSMap();
   private createNode(el) {
     if (isObservable(el)) {
       let ph = document.createTextNode("");
@@ -13,9 +16,10 @@ export class Component extends HTMLElement {
         ph.replaceWith(n);
         ph = n;
       });
-      console.log(ph);
+
       return ph;
     }
+
     if (Array.isArray(el)) {
       // @ts-ignore
       return new (customElements.get("ui-map"))().nest(...el);
@@ -40,8 +44,9 @@ export class Component extends HTMLElement {
     this.appendChild(html(strings, ...all).render());
     return this;
   }
-  css(...styles) {
-    this.#css = { ...this.#css, ...css(...styles) };
+  css(...styles: [TemplateStringsArray, ...any[]]) {
+    console.log(styles);
+    this.#css.add(createObject(...styles));
 
     return this;
   }
@@ -50,7 +55,7 @@ export class Component extends HTMLElement {
     return this;
   }
   connectedCallback() {
-    this.classList.add(...getStyleClasses(this.#css));
+    this.classList.add(...this.#css.classNames);
   }
 }
 export const getComponent = (path) => {

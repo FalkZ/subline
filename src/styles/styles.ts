@@ -1,18 +1,20 @@
 import { isObservable } from "../Observable";
 
 import { css } from "./css";
+import { CSSMap } from "./CSSMap";
 
 export { css };
 
 const style = document.createElement("style");
 document.head.prepend(style);
 
+//@ts-ignore
 window._stylesheet = style.sheet;
 
 let counter = 0;
 
 style.sheet.insertRule(`html {width: 100%; height: 100%}`);
-style.sheet.insertRule(`body{margin: 0; min-height: 100%;}`);
+style.sheet.insertRule(`body {margin: 0; min-height: 100%;}`);
 
 const getClassName = (prefix) => {
   ++counter;
@@ -91,17 +93,15 @@ const applyRule = ({ parents, context }) => ([key, value]) => {
   }
 };
 
-let defaultStyles = {};
+let defaultStyles = new CSSMap();
 
-export const setDefaultStyles = (cssStyleMap = {}) => {
+export const setDefaultStyles = (cssStyleMap) => {
   defaultStyles = cssStyleMap;
 };
 
-export const getStyleClasses = (
-  cssStyleMap = {},
-  { parents, context } = {}
-) => {
-  return Object.entries({ ...defaultStyles, ...cssStyleMap }).map(
-    applyRule({ parents, context })
-  );
+export const getClassNames = (cssStyleMap, { parents, context }: any = {}) => {
+  return defaultStyles
+    .add(cssStyleMap)
+    .entries()
+    .map(applyRule({ parents: parents || [], context }));
 };

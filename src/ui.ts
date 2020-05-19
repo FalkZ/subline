@@ -34,8 +34,6 @@ define("text", class extends Component {
 
     ctx.font = `${styles.fontStyle} ${styles.fontVariant} ${styles.fontWeight} ${styles.fontSize} ${styles.fontFamily}`;
 
-    console.log(ctx.font);
-
     const text = this.innerText;
 
     this.innerText = "H";
@@ -55,7 +53,6 @@ define("text", class extends Component {
 
     const span = document.createElement("span");
 
-    console.log(styles.lineHeight);
     //span.style.verticalAlign = "top";
     span.style.lineHeight = styles.lineHeight;
 

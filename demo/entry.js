@@ -43,8 +43,9 @@ m.demo.test
   </svg>
   `.css`
   display: block;
-  background: red;
+  background: ${v._`test`.pipe((v) => (v === 1 ? "black" : "red"))};
   font-size: 30px;
+  font: 30px;
   `.attach(document.body);
 
 serviceWorker({ path: "/demo/service-worker.js" });

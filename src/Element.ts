@@ -4,8 +4,8 @@ export class Element extends Promise<Component> {
   nest(...els) {
     return this.then((el: Component) => el.nest(...els));
   }
-  css(css) {
-    return this.then((el) => el.css(css));
+  css(...css: [TemplateStringsArray, ...any[]]) {
+    return this.then((el) => el.css(...css));
   }
   html(strings, ...all) {
     return this.then((el) => el.html(strings, ...all));

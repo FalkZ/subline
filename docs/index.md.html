@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Docs</title>
+    <script src="https://unpkg.com/md.html.js@0.0.5" type="module"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body{
+        max-width: 100%;
+        width:  800px;
+        margin: 0 auto;
+
+        font-weight: 300;
+        font-family: "DM Mono", monospace;
+        font-size: 19px;
+        
+      }
+      svg {
+        height: 0.7em;
+        width: 0.7em;
+        margin-right: -0.38em;
+      }
+      path {
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 0.12em;
+      }
+      h1 {
+        font-weight: 400;
+        font-size: 90px;
+      }
+      h1 > sup{
+        font-size: 20px;
+        color: white;
+        background: black;
+        border-radius: 2px;
+        padding: 0 4px; 
+      }
+      h2, h3 {
+        padding-left: 20px;
+        font-size: 34px;
+       border-bottom: 4px solid black;
+      font-weight: bold;
+       white-space: nowrap;
+       width: 25px;
+       line-height: 1.3;
+        
+      }
+      code { 
+        display: block;
+        color: red;
+      }
+      pre{
+        background: black;
+        border-radius: 2px;
+        box-shadow: inset 2px 2px 11px 0px rgba(255,255,255,0.47);
+      }
+      a{
+        text-decoration: none;
+        color: black;
+        border-bottom: 1px solid black;
+      }
+
+      code {
+      --base-color: #95a7ad;
+      --comment-color: #93a1a1;
+      --punctuation-color: #999;
+      --property-color: #905;
+      --selector-color: rgb(255, 255, 255);
+      --operator-color: #a67f59;
+      --variable-color: #e90;
+      --keyword-color:  rgb(243, 29, 29);
+      --function-color: #dd4a68; 
+}
+    </style>
+  </head>
+  <body>
+    <template>
+<h1>
+  <svg viewBox="20 0 100 100">
+    <path d="M 0, 76 l 78 0 a 10 10 0 0 19 10"></path></svg
+  >subline.js<sup>0.0.4 beta</sup>
+</h1>
+
+**All in one microframework**, with out of the box: centralized store, 2-way data bindings, runtime type-checking, components, scoped css, code splitting, routing, caching, no build steps required
+
+**[9.2kb](https://bundlephobia.com/result?p=subline@0.0.4)** gzipped
+
+## getting started 
+
+```javascript 
+import { store, m, element, serviceWorker, types } from "../dist/subline.js"; 
+const { Union } = types; 
+
+```
+    </template>
+  </body>
+</html>

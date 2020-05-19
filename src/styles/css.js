@@ -19,7 +19,7 @@ export const css = (strings, ...contents) => {
         //.filter((f) => f.trim())
         .map((v) => v.split(": "));
 
-      const last = dynamic;
+      const last = dynamic || {};
       if (contents[index] !== undefined) {
         const [key, prefix] = r.pop();
         dynamic = { key, prefix, value: contents[index] };
@@ -50,10 +50,11 @@ export const css = (strings, ...contents) => {
     })
     .flat()
     .forEach(([key, val]) => {
+      console.log(key, val);
       if (typeof val === "string") val = val.trim();
       key = key.trim();
-      if (key === "line-height") key = "--line-height";
-      if (key.startsWith("*")) key = key.substring(1);
+      // if (key === "line-height") key = "--line-height";
+      // if (key.startsWith("*")) key = key.substring(1);
 
       let longhand;
       try {

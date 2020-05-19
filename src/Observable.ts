@@ -36,6 +36,14 @@ export class Observable {
     this.attachObserver(this.#path, cb);
     return this;
   }
+  pipe(cb) {
+    const observable = newDeepObservable({ val: null });
+    this.attachObserver(this.#path, (value) => {
+      console.log(value);
+      observable._`val`.next(cb(value));
+    });
+    return observable._`val`;
+  }
   next(value) {
     if (typeof value === "function") {
       value = value(this.#store.getValue(...this.#path));
