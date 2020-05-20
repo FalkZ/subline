@@ -1,5 +1,5 @@
 export const cmyk = (c, m, y, k, a = 1) => {
-  const convert = (color) => k * (1 - color) * 255;
+  const convert = (color) => (1 - k) * (1 - color) * 255;
 
   const convertedColors = [c, m, y].map(convert);
   if (a !== 1) convertedColors.push(a * 255);

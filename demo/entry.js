@@ -34,6 +34,7 @@ i.src =
 m.demo.test
   .v({ num: v._`test` })
   .nest(
+    element.input.bind(v._`test`).css`display: none;`,
     "jdkiiiiiiiiiiii sa dsa dsa dsa f sfds dsfffffffffghhhhhhhhhh ds pdsa fda fda fdfff sfd dsfda dsff wfdkk",
     v.arr._`2`,
     v._`arr`,
@@ -51,7 +52,7 @@ m.demo.test
   `.css`
   display: block;
   background: ${v._`test`.pipe((v) =>
-    v === 1 ? "green" : cmyk(1, 0, 0.7, 1)
+    v === 1 ? "green" : cmyk(1, 0, 0.7, 0)
   )};
   font-size: 30px;
   font: 30px;

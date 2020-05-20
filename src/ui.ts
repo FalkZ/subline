@@ -1,4 +1,5 @@
 import { Component } from "./component/Component";
+import { Observable } from "./store/Observable";
 
 const ui: any = {};
 
@@ -76,12 +77,24 @@ define("text", class extends Component {
   }
 });
 
+define("input", class extends Component {
+  #input = document.createElement("input");
+  constructor() {
+    super();
+    this.appendChild(this.#input);
+  }
+  bind(t: Observable) {
+    t.subscribe((value) => (this.#input.value = value));
+    this.#input.onchange = ({ target: { value } }: any) =>
+      t.next(Number(value));
+    return this;
+  }
+});
+
 define("img", class extends Component {
   #image = new Image();
   src: string;
-  constructor() {
-    super();
-  }
+
   connectedCallback() {
     this.#image.src = this.src;
     this.classList.add("loading");
