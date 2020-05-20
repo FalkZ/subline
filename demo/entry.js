@@ -36,10 +36,10 @@ const i = element.img({
 
 m.demo.test.v({ num: v._`test` }).nest(
   element.markdown`
-# test ${v._`test`}
+  # test ${v._`test`}
 
   [${"test"}](${"va"})
-    `,
+      `,
   element.input({ bind: v._`test3` }),
   element.input({ bind: v._`test2` }),
   element.input({ bind: v._`test` }).css`display: block;`,

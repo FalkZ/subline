@@ -1,7 +1,5 @@
 import { get } from "./idb";
 
-console.log(get("service-worker"));
-
 const getCache = () => caches.open("auto-cache");
 
 self.addEventListener("fetch", function (evt: any) {

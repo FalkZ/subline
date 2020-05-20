@@ -63,11 +63,3 @@ const remanent = (name) =>
     };
     return prox(obj);
   });
-
-remanent(6).then((obj: any) => {
-  console.log("r", { ...obj });
-
-  obj.test = 1092;
-
-  obj.a = (obj.a || 1) + 1;
-});

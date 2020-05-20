@@ -16,7 +16,6 @@ export const addToCSSMap = (
         const prefix = last[1];
         const postfix = s.shift() || "";
 
-        console.log(objects[index - 1], isObservable(objects[index - 1]));
         if (isObservable(objects[index - 1])) {
           last[1] = objects[index - 1].pipe((val) => prefix + val + postfix);
         } else {
@@ -29,7 +28,6 @@ export const addToCSSMap = (
         .filter(Boolean)
         .map((str) => str.split(":").map((str) => str.trim()));
 
-      console.log({ last });
       if (last) s.unshift(last);
       if (index !== strings.length - 1) {
         last = s.pop();
@@ -38,12 +36,10 @@ export const addToCSSMap = (
         last = null;
       }
 
-      console.log({ s });
       return s;
     })
     .flat()
     .filter(Boolean);
-  console.log(ret);
 
   return map.add(ret);
 };

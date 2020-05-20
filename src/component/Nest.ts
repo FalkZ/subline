@@ -12,11 +12,11 @@ export const createNode = (el, textClip = true) => {
   }
   if (Array.isArray(el)) {
     // @ts-ignore
-    return new (customElements.get("ui-map"))().nest(...el);
+    return new (customElements.get("element-mapwrapper"))().nest(...el);
   }
   if (["number", "string"].includes(typeof el)) {
     if (textClip) {
-      const text = new (customElements.get("ui-text"))();
+      const text = new (customElements.get("element-text"))();
       text.innerText = el;
       return text;
     } else return document.createTextNode(el);

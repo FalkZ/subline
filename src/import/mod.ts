@@ -1,5 +1,5 @@
 import { Import } from "./Import";
-import { ui } from "../ui";
+import { element } from "../elements/element";
 import { serviceWorker } from "../installSW";
 
 const mod = (path = []) => {
@@ -11,4 +11,4 @@ const mod = (path = []) => {
 };
 export const m = mod();
 
-export { ui, serviceWorker };
+export { element as ui, serviceWorker };

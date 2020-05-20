@@ -42,7 +42,6 @@ export class Observable {
   pipe(cb) {
     const observable = newDeepObservable({ val: null });
     this.attachObserver(this.#path, (value) => {
-      console.log(value);
       observable._`val`.next(cb(value));
     });
     return observable._`val`;
@@ -77,7 +76,7 @@ export class Observable {
 
           const arr = [...observable.arr];
           arr[index] = v;
-          console.log(arr);
+
           observable._`arr`.next(arr);
         });
         registered = index;
