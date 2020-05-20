@@ -2,7 +2,10 @@ import { html } from "../html";
 export const Html = (Mixin) =>
   class extends Mixin {
     html(strings, ...all) {
-      this.appendChild(html(strings, ...all).render());
+      const h = html(strings, ...all);
+      console.log(h);
+      if (Array.isArray(h)) h.forEach((h) => this.appendChild(h.render()));
+      else this.appendChild(h.render());
       return this;
     }
   };

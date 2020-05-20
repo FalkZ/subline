@@ -13,11 +13,13 @@ const v = store({
   arr: [1, 22, 3, 4],
   test: 1,
   test2: "v",
+  test3: true,
   obj: { arr: [1, 22, 3, 4] },
 }).types({
   arr: [Number, String],
   test: Union(null, Number),
   test2: String,
+  test3: Boolean,
   obj: {
     arr: [Number, String],
     [Number]: String,
@@ -26,20 +28,26 @@ const v = store({
 
 console.log(v);
 
-const i = element.img;
+const i = element.img({
+  src:
+    "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60",
+  width: "50%",
+});
 
-i.src =
-  "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60";
+m.demo.test.v({ num: v._`test` }).nest(
+  element.markdown`
+# test ${v._`test`}
 
-m.demo.test
-  .v({ num: v._`test` })
-  .nest(
-    element.input.bind(v._`test`).css`display: none;`,
-    "jdkiiiiiiiiiiii sa dsa dsa dsa f sfds dsfffffffffghhhhhhhhhh ds pdsa fda fda fdfff sfd dsfda dsff wfdkk",
-    v.arr._`2`,
-    v._`arr`,
-    i
-  ).html`
+  [${"test"}](${"va"})
+    `,
+  element.input({ bind: v._`test3` }),
+  element.input({ bind: v._`test2` }),
+  element.input({ bind: v._`test` }).css`display: block;`,
+  "jdkiiiiiiiiiiii sa dsa dsa dsa f sfds dsfffffffffghhhhhhhhhh ds pdsa fda fda fdfff sfd dsfda dsff wfdkk",
+  v.arr._`2`,
+  v._`arr`,
+  i
+).html`
   <svg width="391" height="391" viewBox="-70.5 -70.5 391 391">
   <rect fill="#fff" stroke="#000" x="-70" y="-70" width="390" height="390"/>
   <g opacity="0.8">

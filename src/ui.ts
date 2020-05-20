@@ -11,8 +11,7 @@ const define = (name, Cp) => {
   Object.defineProperty(ui, name, {
     enumerable: true,
     configurable: false,
-
-    get: () => new El(),
+    value: (...props) => new El(...props),
   });
 };
 
@@ -79,27 +78,84 @@ define("text", class extends Component {
 
 define("input", class extends Component {
   #input = document.createElement("input");
-  constructor() {
+  constructor({ bind, type }) {
     super();
+    if (bind) {
+      if (!type) {
+        type =
+          typeof bind.value === "number"
+            ? "number"
+            : typeof bind.value === "boolean"
+            ? "checkbox"
+            : "text";
+      }
+
+      bind.subscribe((value) => {
+        if (type === "checkbox") this.#input.checked = value;
+        else this.#input.value = value;
+      });
+      this.#input.onchange = ({ target: { value, checked } }: any) => {
+        if (type === "number") value = Number(value);
+        if (type === "checkbox") value = Boolean(value);
+        bind.next(value);
+      };
+    }
+    this.#input.type = type;
+
     this.appendChild(this.#input);
-  }
-  bind(t: Observable) {
-    t.subscribe((value) => (this.#input.value = value));
-    this.#input.onchange = ({ target: { value } }: any) =>
-      t.next(Number(value));
-    return this;
   }
 });
 
-define("img", class extends Component {
+define("markdown", class extends Component {
+  constructor(strings, ...obj: any) {
+    super();
+    const hash = "{{}}";
+
+    console.log(
+      import(
+        // @ts-ignore
+        "https://unpkg.com/marked@1.1.0/lib/marked.esm.js"
+      )
+        .then((mod: any) => mod.default(strings.join(hash)))
+
+        .then((strings) => {
+          strings = `<span>${strings}</span>`;
+          console.log(strings.split(/(?:%7B%7B%7D%7D)|(?:{{}})/));
+          // @ts-ignore
+          this.html(strings.split(/(?:%7B%7B%7D%7D)|(?:{{}})/), ...obj);
+        })
+    );
+  }
+});
+
+https: define("img", class extends Component {
   #image = new Image();
-  src: string;
+  #src: string;
+  constructor({ src, prefetch, width, height }: any = {}) {
+    super();
+
+    if (prefetch === undefined) prefetch = true;
+
+    this.style.display = "block";
+    this.style.width = width;
+    this.style.height = height;
+
+    this.#image.style.width = "100%";
+    this.#image.style.maxHeight = "100%";
+    if (prefetch) {
+      this.#image.src = src;
+      this.classList.add("loading");
+    } else {
+      this.#src = src;
+    }
+  }
 
   connectedCallback() {
-    this.#image.src = this.src;
-    this.classList.add("loading");
+    if (this.#src) {
+      this.#image.src = this.#src;
+      this.classList.add("loading");
+    }
     this.#image.onload = () => {
-      this.style.display = "contents";
       this.appendChild(this.#image);
       this.classList.remove("loading");
     };

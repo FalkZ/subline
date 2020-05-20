@@ -32,6 +32,9 @@ export class Observable {
       .pipeThrough(distinct(isEqual))
       .pipeTo(subscribe(cb));
   }
+  get value() {
+    return this.#store.getValue(...this.#path);
+  }
   subscribe(cb) {
     this.attachObserver(this.#path, cb);
     return this;
